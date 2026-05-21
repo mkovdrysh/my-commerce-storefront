@@ -1,3 +1,7 @@
 mountpoints:
   /:
-    url: "https://content.da.live/mkovdrysh/my-commerce-storefront"
+    url: https://content.da.live/mkovdrysh/commerce-storefront/
+    type: markup
+
+folders:
+  /products/: /products/default
