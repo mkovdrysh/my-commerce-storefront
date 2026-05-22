@@ -79,10 +79,10 @@ function escapeHtml(text) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const categoryId = config['category-id'] ?? '';
-  const categoryPath = config['url-path'] ?? config.urlpath ?? '';
+  const categoryId = config.categoryid ?? '';
+  const categoryPath = config.urlpath ?? '';
   const heading = config.heading ?? 'Featured Products';
-  const maxProductsStr = config['max-products'] ?? config.maxproducts ?? '4';
+  const maxProductsStr = config.maxproducts ?? '4';
 
   const maxProducts = parseInt(maxProductsStr, 10) || 4;
 
