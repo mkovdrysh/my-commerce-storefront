@@ -79,6 +79,7 @@ function escapeHtml(text) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  console.log('config keys:', JSON.stringify(config));
   const categoryId = config.categoryid ?? '';
   const categoryPath = config.urlpath ?? '';
   const heading = config.heading ?? 'Featured Products';
