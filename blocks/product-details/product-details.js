@@ -106,6 +106,7 @@ export default async function decorate(block) {
         <div class="product-details__header"></div>
         <div class="product-details__tagline pdp-tagline" aria-label="Promotional offer"></div>
         <div class="product-details__stock" role="status" aria-live="polite"></div>
+        <div class="product-details__badge"></div>
         <div class="product-details__price"></div>
         <div class="product-details__gallery"></div>
         <div class="product-details__short-description"></div>
@@ -141,6 +142,7 @@ export default async function decorate(block) {
   const $tagline = fragment.querySelector('.product-details__tagline');
   const $stock = fragment.querySelector('.product-details__stock');
   const $customAttribute = fragment.querySelector('.product-details__custom-attribute');
+  const $badge = fragment.querySelector('.product-details__badge');
 
   block.replaceChildren(fragment);
   if ($tagline) {
@@ -165,8 +167,21 @@ export default async function decorate(block) {
       </div>
       `;
     }
-  }, { eager: true });
+    // Badges
+    const badges = [];
 
+    // Sale badge — driven by live price data
+    if (product.prices.final.amount < product.prices.regular.amount) {
+      badges.push({ label: 'Sale', modifier: 'sale' });
+    }
+
+    // New badge — hardcoded for now, to be wired to is_new attribute in Week 3
+    badges.push({ label: 'New', modifier: 'new' });
+
+    $badge.innerHTML = badges
+      .map((b) => `<span class="product-badge product-badge--${b.modifier}">${b.label}</span>`)
+      .join('');
+  }, { eager: true });
 
   const gallerySlots = {
     CarouselThumbnail: (ctx) => {

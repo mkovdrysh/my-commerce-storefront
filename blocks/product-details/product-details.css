@@ -145,4 +145,30 @@
     margin-left: 0;
     color: #444;
   }
+    .product-details__badge {
+        display: flex;
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+    }
+
+    .product-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 1rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .product-badge--sale {
+        background: #53824c;
+        color: #fff;
+    }
+
+    .product-badge--new {
+        background: #0065bd;
+        color: #fff;
+    }
 }
