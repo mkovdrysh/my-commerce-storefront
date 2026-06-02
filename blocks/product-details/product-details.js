@@ -149,7 +149,7 @@ export default async function decorate(block) {
     $tagline.textContent = 'Free shipping on orders over $50';
   }
 
-  events.on('pdp/data', (product) => {
+  events.on('pdp/data', async (product) => {
     if (!product) return;
     if (product.inStock) {
       $stock.textContent = '● In Stock';
@@ -161,22 +161,33 @@ export default async function decorate(block) {
     const value = product.metaTitle;
     if (value) {
       $customAttribute.innerHTML = `
-      <div class="custom-attribute">
-      <dt>Custom Attribute Label</dt>
-      <dd>${value}</dd>
-      </div>
-      `;
+    <div class="custom-attribute">
+    <dt>Custom Attribute Label</dt>
+    <dd>${value}</dd>
+    </div>
+    `;
     }
     // Badges
     const badges = [];
 
-    // Sale badge — driven by live price data
+    // Sale badge — driven by live price data from pdp/data
     if (product.prices.final.amount < product.prices.regular.amount) {
       badges.push({ label: 'Sale', modifier: 'sale' });
     }
 
-    // New badge — hardcoded for now, to be wired to is_new attribute in Week 3
-    badges.push({ label: 'New', modifier: 'new' });
+    // New badge — driven by App Builder action
+    try {
+      const res = await fetch(
+        `https://3967933-158sangriashrew-stage.adobeioruntime.net/api/v1/web/my-commerce-extension/product-badge-state?sku=${product.sku}`
+      );
+      const data = await res.json();
+      const newBadge = data.badges?.find((b) => b.id === 'new');
+      if (newBadge) {
+        badges.push({ label: newBadge.label, modifier: newBadge.modifier });
+      }
+    } catch (e) {
+      console.error('Badge action fetch failed:', e);
+    }
 
     $badge.innerHTML = badges
       .map((b) => `<span class="product-badge product-badge--${b.modifier}">${b.label}</span>`)
