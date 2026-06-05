@@ -175,24 +175,24 @@ export default async function decorate(block) {
       badges.push({ label: 'Sale', modifier: 'sale' });
     }
 
-    // New badge — driven by App Builder action
+    // Last Buy badge — driven by App Builder action
     try {
       const res = await fetch(
         `https://3967933-158sangriashrew-stage.adobeioruntime.net/api/v1/web/my-commerce-extension/product-badge-state?sku=${product.sku}`
       );
       const data = await res.json();
-      const newBadge = data.badges?.find((b) => b.id === 'new');
-      if (newBadge) {
-        badges.push({ label: newBadge.label, modifier: newBadge.modifier });
+      const lastBuyBadge = data.badges?.find((b) => b.id === 'last-buy');
+      if (lastBuyBadge) {
+        badges.push({ label: lastBuyBadge.label, modifier: lastBuyBadge.modifier });
       }
     } catch (e) {
       console.error('Badge action fetch failed:', e);
     }
 
     $badge.innerHTML = badges
-      .map((b) => `<span class="product-badge product-badge--${b.modifier}">${b.label}</span>`)
+        .map((b) => `<span class="product-badge product-badge--${b.modifier}">${b.label}</span>`)
       .join('');
-  }, { eager: true });
+    }, { eager: true });
 
   const gallerySlots = {
     CarouselThumbnail: (ctx) => {

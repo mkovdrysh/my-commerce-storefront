@@ -167,8 +167,9 @@
         color: #fff;
     }
 
-    .product-badge--new {
-        background: #0065bd;
-        color: #fff;
+    .product-badge--last-buy {
+        background: #fff8e1;
+        color: #f57f17;
+        border: 1.5px solid #f57f17;
     }
 }
