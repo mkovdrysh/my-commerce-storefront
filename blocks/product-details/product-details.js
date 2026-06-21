@@ -178,7 +178,7 @@ export default async function decorate(block) {
     // Last Buy badge — driven by App Builder action
     try {
       const res = await fetch(
-        `https://3967933-158sangriashrew-stage.adobeioruntime.net/api/v1/web/my-commerce-extension/product-badge-state?sku=${product.sku}`
+        `https://3967933-158sangriashrew-badge.adobeioruntime.net/api/v1/web/badge-extension/product-badge-state?sku=${product.sku}`
       );
       const data = await res.json();
       const lastBuyBadge = data.badges?.find((b) => b.id === 'last-buy');
@@ -190,9 +190,13 @@ export default async function decorate(block) {
     }
 
     $badge.innerHTML = badges
-        .map((b) => `<span class="product-badge product-badge--${b.modifier}">${b.label}</span>`)
-      .join('');
-    }, { eager: true });
+      .map((b) => `
+       <span class="product-badge product-badge--${b.modifier}">
+         ${b.label}
+         ${b.sub ? `<span class="product-badge__sub">${b.sub}</span>` : ''}
+       </span>
+      `).join('')
+  }, { eager: true });
 
   const gallerySlots = {
     CarouselThumbnail: (ctx) => {

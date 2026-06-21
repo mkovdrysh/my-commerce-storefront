@@ -154,22 +154,31 @@
     .product-badge {
         display: inline-flex;
         align-items: center;
-        padding: 0.4rem 1rem;
-        border-radius: 6px;
         font-size: 0.85rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
+        border-radius: 24px;
+        padding: 0.4rem 1.2rem;
+        flex-direction: column;
+        gap: 0.1rem;
+        color: #fff;
     }
 
     .product-badge--sale {
         background: #53824c;
-        color: #fff;
     }
 
+
     .product-badge--last-buy {
-        background: #fff8e1;
-        color: #f57f17;
-        border: 1.5px solid #f57f17;
+        background: #dc2626;
+    }
+
+    .product-badge--last-buy .product-badge__sub {
+        font-size: 0.65rem;
+        font-weight: 400;
+        color: #fecaca;
+        letter-spacing: 0.04em;
+        text-transform: none;
     }
 }
