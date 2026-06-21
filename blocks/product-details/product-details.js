@@ -170,11 +170,6 @@ export default async function decorate(block) {
     // Badges
     const badges = [];
 
-    // Sale badge — driven by live price data from pdp/data
-    if (product.prices.final.amount < product.prices.regular.amount) {
-      badges.push({ label: 'Sale', modifier: 'sale' });
-    }
-
     // Last Buy badge — driven by App Builder action
     try {
       const res = await fetch(
